@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import SidePanel from "../Components/SidePanel";
 import TitleBar from "../Components/TitleBar";
-import IssueBook from "../Components/IssueBook";
+import IssueBook from "../Components/librarian/IssueBook";
+import ReturnBook from "../Components/librarian/ReturnBook";
+import Inventory from "../Components/librarian/Inventory";
+import Transactions from "../Components/librarian/Transactions";
+import Reports from "../Components/librarian/Reports";
 
 function LibrarianDashboard() {
   const panelData = [
@@ -19,7 +23,11 @@ function LibrarianDashboard() {
       <TitleBar title="Librarian Dashboard" />
       <div className="d-flex flex-row h-100">
         <SidePanel panelData={panelData} setActiveElement={setActiveElement} />
-        {activeComponent=="issuebook" && <IssueBook/>}
+        {activeComponent == "issuebook" && <IssueBook />}
+        {activeComponent == "returnbook" && <ReturnBook />}
+        {activeComponent == "inventory" && <Inventory />}
+        {activeComponent == "transactions" && <Transactions />}
+        {activeComponent == "reports" && <Reports />}
       </div>
     </div>
   );
