@@ -1,0 +1,16 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+body{
+  height:100vh;
+  /* background-color:red; */
+}
+.cursor-pointer{
+  cursor:pointer;
+}
+.hover-bg-dark:hover {
+  background-color: #343a40;
+  color: white;
+}
