@@ -1,10 +1,11 @@
 import React from "react";
 
-function TitleSearchBar({ title, input, setInput, onSearch }) {
+function TitleSearchBarCustom({ title, input, setInput, onSearch, CustomElement }) {
 
   return (
     <div className="d-flex flex-row justify-content-between w-100 align-items-center">
       <h5>{title}</h5>
+      {CustomElement && <CustomElement />}
       <div className="d-flex flex-row justify-space-evenly">
         <input
           type="text"
@@ -15,10 +16,17 @@ function TitleSearchBar({ title, input, setInput, onSearch }) {
           }}
           className="form-control me-2"
         />
-        <button className="btn btn-danger" onClick={()=>{onSearch(input)}}> Search </button>
+        <button
+          className="btn btn-danger"
+          onClick={() => {
+            onSearch(input);
+          }}>
+          {" "}
+          Search{" "}
+        </button>
       </div>
     </div>
   );
 }
 
-export default TitleSearchBar;
+export default TitleSearchBarCustom;

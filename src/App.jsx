@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 import Login from "./assets/Pages/Login";
 import LibrarianDashboard from "./assets/Pages/LibrarianDashboard";
 import MemberDashboard from "./assets/Pages/MemberDashboard";
