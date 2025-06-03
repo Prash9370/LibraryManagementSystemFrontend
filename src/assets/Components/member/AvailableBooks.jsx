@@ -1,44 +1,30 @@
 import React, { useState, useEffect } from "react";
 import TitleSearchBar from "../TitleSearchBar";
-import IssueBookModal from "./IssueBookModal";
 import axios from "axios";
 import { logout, url } from "../../values";
 
-function IssueBook() {
+
+function AvailableBooks() {
   const [tableData, setTableData] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [bookData, setBookData] = useState(undefined);
   const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
     async function refreshData() {
-      try {
-        const response = await axios.get(`${url}/books/available`, {
-          withCredentials: true
-        });
-
-        if (response.status === 200) {
+      try{
+        const response = await axios.get(url+"/books/available",{withCredentials: true});
+        if(response.status === 200){
           setTableData(response.data.data);
-        } else if (response.status === 401) {
-          console.log("Logging out from try");
-          await logout();
         }
-      } catch (error) {
-        if (error.response?.status === 401) {
-          console.log("Logging out from catch");
+      }catch(error){
+        if(error.response?.status == 401){
+          alert("Login using valid credentials");
           await logout();
-        } else {
-          console.error("Fetch failed", error);
         }
       }
-    }
 
+    }
     refreshData();
   }, []);
-  
-
-
-
   return (
     <div className="w-100 py-3 px-5">
       <TitleSearchBar
@@ -58,7 +44,6 @@ function IssueBook() {
               <th>BookID</th>
               <th>Author</th>
               <th>Available Copies</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -76,16 +61,6 @@ function IssueBook() {
                     <td>{item.bookId}</td>
                     <td>{item.author}</td>
                     <td>{item.copies}</td>
-                    <td className="text-center">
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => {
-                          setShowModal(true);
-                          setBookData(item);
-                        }}>
-                        Issue Book
-                      </button>
-                    </td>
                   </tr>
                 );
               }
@@ -93,16 +68,8 @@ function IssueBook() {
           </tbody>
         </table>
       )}
-      {showModal && (
-        <IssueBookModal
-          onClose={() => {
-            setShowModal(false);
-          }}
-          bookData={bookData}
-        />
-      )}
     </div>
   );
 }
 
-export default IssueBook;
+export default AvailableBooks;

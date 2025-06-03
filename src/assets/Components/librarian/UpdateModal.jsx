@@ -2,14 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import { logout, url } from "../../values";
 
-function AddBookModal({ onClose }) {
-  const [book, setBook] = useState({
-    name: "",
-    author: "",
-    publication: "",
-    copies: 0,
-    genre: ""
-  });
+function UpdateModal({ bookData, onClose }) {
+  const [book, setBook] = useState(bookData);
 
   function handleChange(name, value) {
     setBook((prev) => ({
@@ -25,12 +19,13 @@ function AddBookModal({ onClose }) {
         return;
       }
     });
-    const response = await axios.post(url + "/book/add", book, {
+
+    const response = await axios.post(url + "/books/update", book, {
       withCredentials: true
     });
     try {
       if (response.status === 200) {
-        alert("Book Added Successfully with ID: " + response.data.data.bookId);
+        alert("Book Updated Successfully");
         onClose();
       }
     } catch (e) {
@@ -51,7 +46,7 @@ function AddBookModal({ onClose }) {
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content p-3 bg-smooth">
           <div className="modal-header w-full d-flex justify-content-between">
-            <h3 className="modal-title text-center">Add Book</h3>
+            <h3 className="modal-title text-center">Update Book</h3>
             <button
               type="button"
               className="close btn btn-sm"
@@ -112,6 +107,20 @@ function AddBookModal({ onClose }) {
                 type="number"
                 className="form-control w-50 me-2"
                 id="copies"
+                value={book.totalCopies}
+                onChange={(e) => {
+                  handleChange("totalCopies", e.target.value);
+                }}
+              />
+            </div>
+            <div className="d-flex align-items-center mt-3">
+              <label htmlFor="copies" className="me-2">
+                <strong>Available Copies: </strong>
+              </label>
+              <input
+                type="number"
+                className="form-control w-50 me-2"
+                id="copies"
                 value={book.copies}
                 onChange={(e) => {
                   handleChange("copies", e.target.value);
@@ -141,7 +150,7 @@ function AddBookModal({ onClose }) {
 
           <div className="modal-footer">
             <button className="btn btn-success" onClick={handleSubmit}>
-              Add Book
+              Update Book
             </button>
           </div>
         </div>
@@ -150,4 +159,4 @@ function AddBookModal({ onClose }) {
   );
 }
 
-export default AddBookModal;
+export default UpdateModal;

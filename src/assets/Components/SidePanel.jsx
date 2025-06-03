@@ -13,7 +13,7 @@ function SidePanel({ panelData, setActiveElement }) {
   return (
     <div className={`w-25 bg-secondary pt-3 h-screen ${isVisible?"d-block":"d-none"}`}>
       <div className="text-end px-3 mb-2 cursor-pointer" onClick={()=>{setVisible(false)}}>
-        <i class="bi bi-x-square bg-light"></i>
+        <i className="bi bi-x-square bg-light"></i>
       </div>
       {panelData.map((entry, index) => (
         <div

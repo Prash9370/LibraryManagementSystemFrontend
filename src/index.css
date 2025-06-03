@@ -17,7 +17,13 @@ body{
 .bg-smooth{
   background-color:lightgrey;
 }
-.h-fullscreen{
+.h-screen{
   height:100%;
 }
 
+.login-bg {
+  background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794');
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(4px);
+}

@@ -28,7 +28,7 @@ function ReturnButton({ refreshBookData, transactionId }) {
   async function Return() {
     const response = await axios.post(`${url}/returnbook`, {
       transactionId: transactionId
-    });
+    },{withCredentials:true});
     if (response.data.status) {
       alert(response.data.message);
       refreshBookData();
@@ -49,48 +49,12 @@ function ReturnBook() {
   const [issuedBooksData, setIssuedBooksData] = useState([]);
 
   useEffect(() => {
-    setIssuedBooksData([
-      {
-        name: "The Great Gatsby",
-        bookId: "B001",
-        receiverId: "U1001",
-        issueDate: "2025-05-15",
-        penalty: true,
-        penaltyAmount: 25,
-        transactionId: "T12345"
-      },
-      {
-        name: "1984",
-        bookId: "B002",
-        receiverId: "U1002",
-        issueDate: "2025-05-20",
-        penalty: false,
-        transactionId: "T12346"
-      },
-      {
-        name: "To Kill a Mockingbird",
-        bookId: "B003",
-        receiverId: "U1003",
-        issueDate: "2025-05-10",
-        penalty: true,
-        penaltyAmount: 10,
-        transactionId: "T12347"
-      },
-      {
-        name: "Brave New World",
-        bookId: "B004",
-        receiverId: "U1004",
-        issueDate: "2025-05-22",
-        penalty: false,
-        transactionId: "T12348"
-      }
-    ]);
+    refreshBookData();
   }, []);
 
   async function refreshBookData() {
-    const response = await axios.get(`${url}/issuedbooks`);
+    const response = await axios.get(`${url}/books/issued`);
     if (response.data.status) {
-      alert(response.data.message);
       setIssuedBooksData(response.data.data);
     } else {
       alert(response.data.message);

@@ -6,6 +6,7 @@ import Login from "./assets/Pages/Login";
 import LibrarianDashboard from "./assets/Pages/LibrarianDashboard";
 import MemberDashboard from "./assets/Pages/MemberDashboard";
 import Dashboard from "./assets/Pages/Dashboard";
+import SignUp from "./assets/Pages/SignUp";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={<Dashboard />} />
           <Route path="/librarian" element={<LibrarianDashboard />} />
           <Route path="/member" element={<MemberDashboard />} />

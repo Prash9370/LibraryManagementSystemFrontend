@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { url } from "../../values";
+import { logout, url, userData } from "../../values";
 import axios from "axios";
 
 function IssueBookModal({ bookData, onClose }) {
-  const [book, setBook] = useState({ ...bookData, receiverID: null });
+  const [book, setBook] = useState({ ...bookData,librarianId:userData.librarianId, receiverID: null });
 
   const [verified, setVerified] = useState(false);
   const [status, setStatus] = useState();
@@ -17,6 +17,24 @@ function IssueBookModal({ bookData, onClose }) {
     } else {
       setStatus(response.data.message);
     }
+  }
+  async function handleBookIssue(){
+    try{
+      const response = await axios.post(url+"/books/issuebook", book, {withCredentials:true});
+      if(response.status === 200) {
+        if(response.data.status){
+          console.log("Book issued");
+          alert(response.data.message);
+        }
+      }
+    }catch(e){
+      console.log(e);
+      if(e.response?.status === 401){
+        alert("Login from valid credentials");
+        await logout();
+      }
+    }
+    
   }
   return (
     <div
@@ -79,7 +97,7 @@ function IssueBookModal({ bookData, onClose }) {
 
           {verified && (
             <div className="modal-footer">
-              <button className="btn btn-success">Issue Book</button>
+              <button className="btn btn-success" onClick={handleBookIssue}>Issue Book</button>
             </div>
           )}
         </div>
